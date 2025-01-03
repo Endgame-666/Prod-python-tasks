@@ -1,0 +1,4 @@
+PyJWT
+fastapi==0.115.5
+pydantic-settings==2.6.1
+httpx

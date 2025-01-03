@@ -1,0 +1,4 @@
+mypy
+pytest
+pytest-timeout
+pytest-asyncio

@@ -1,0 +1,734 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+      "title": "Kesha and co.",
+      "version": "2024.12.6"
+    },
+    "paths": {
+      "/system/healthcheck": {
+        "get": {
+          "tags": [
+            "system"
+          ],
+          "summary": "Healtcheck",
+          "description": "Проверить, что система активна.",
+          "operationId": "healtcheck_system_healthcheck_get",
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            }
+          }
+        }
+      },
+      "/system/version": {
+        "get": {
+          "tags": [
+            "system"
+          ],
+          "summary": "Get Version",
+          "description": "Получить версию системы.",
+          "operationId": "get_version_system_version_get",
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Version"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/warehouse": {
+        "put": {
+          "tags": [
+            "warehouse"
+          ],
+          "summary": "Update Tree",
+          "description": "Обновить информацию о дереве.",
+          "operationId": "update_tree_warehouse_put",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tree"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "warehouse"
+          ],
+          "summary": "Get Trees",
+          "description": "Получить деревья со склада.",
+          "operationId": "get_trees_warehouse_get",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Id"
+              }
+            },
+            {
+              "name": "specie",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "$ref": "#/components/schemas/Specie"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Specie"
+              }
+            },
+            {
+              "name": "min_months",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Min Months"
+              }
+            },
+            {
+              "name": "max_months",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Max Months"
+              }
+            },
+            {
+              "name": "min_meters",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Min Meters"
+              }
+            },
+            {
+              "name": "max_metres",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "exclusiveMinimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Max Metres"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Tree"
+                    },
+                    "title": "Response Get Trees Warehouse Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/warehouse/{id}": {
+        "get": {
+          "tags": [
+            "warehouse"
+          ],
+          "summary": "Get Tree",
+          "description": "Получить дерево со склада.",
+          "operationId": "get_tree_warehouse__id__get",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "title": "Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Tree"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "warehouse"
+          ],
+          "summary": "Delete Tree",
+          "description": "Удалить дерево со склада.",
+          "operationId": "delete_tree_warehouse__id__delete",
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "title": "Id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/products": {
+        "put": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Update Product",
+          "description": "Обновить информацию о продукте.",
+          "operationId": "update_product_products_put",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get Products",
+          "description": "Получить список продуктов.",
+          "operationId": "get_products_products_get",
+          "parameters": [
+            {
+              "name": "tree_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Tree Id"
+              }
+            },
+            {
+              "name": "min_price",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Min Price"
+              }
+            },
+            {
+              "name": "max_price",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Max Price"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Product"
+                    },
+                    "title": "Response Get Products Products Get"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/products/{id}": {
+        "get": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Get Product",
+          "description": "Получить продукт.",
+          "operationId": "get_product_products__id__get",
+          "parameters": [
+            {
+              "name": "tree_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "title": "Tree Id"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "products"
+          ],
+          "summary": "Delete Product",
+          "description": "Удалить информацию о продукте.",
+          "operationId": "delete_product_products__id__delete",
+          "parameters": [
+            {
+              "name": "tree_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "minimum": 0,
+                "title": "Tree Id"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Successful Response"
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/actualization/price": {
+        "post": {
+          "tags": [
+            "actualization"
+          ],
+          "summary": "Actualize Price",
+          "description": "Актуализировать стоимость товаров.",
+          "operationId": "actualize_price_actualization_price_post",
+          "parameters": [
+            {
+              "name": "tree_id",
+              "in": "query",
+              "required": false,
+              "schema": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  {
+                    "type": "null"
+                  }
+                ],
+                "title": "Tree Id"
+              }
+            }
+          ],
+          "responses": {
+            "202": {
+              "description": "Successful Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+  
+                  }
+                }
+              }
+            },
+            "422": {
+              "description": "Validation Error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/HTTPValidationError"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "HTTPValidationError": {
+          "properties": {
+            "detail": {
+              "items": {
+                "$ref": "#/components/schemas/ValidationError"
+              },
+              "type": "array",
+              "title": "Detail"
+            }
+          },
+          "type": "object",
+          "title": "HTTPValidationError"
+        },
+        "Product": {
+          "properties": {
+            "tree_id": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Tree Id"
+            },
+            "price": {
+              "type": "number",
+              "minimum": 0,
+              "title": "Price",
+              "examples": [4999]
+            },
+            "description": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "maxLength": 255,
+                  "minLength": 15,
+                  "examples": [
+                    "Неприхотливое дерево для Вашего сада."
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Description"
+            }
+          },
+          "type": "object",
+          "required": [
+            "tree_id",
+            "price"
+          ],
+          "title": "Product",
+          "description": "Сущность товара."
+        },
+        "Specie": {
+          "type": "string",
+          "enum": [
+            "alder",
+            "birch",
+            "cedar",
+            "fir",
+            "maple",
+            "oak",
+            "pine",
+            "spruce",
+            "willow"
+          ],
+          "title": "Specie",
+          "description": "Вид дерева."
+        },
+        "Tree": {
+          "properties": {
+            "id": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Id"
+            },
+            "specie": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Specie"
+                }
+              ],
+              "examples": [
+                "spruce"
+              ]
+            },
+            "months": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "title": "Months",
+              "examples": [23]
+            },
+            "meters": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "title": "Meters",
+              "examples": [0.4]
+            }
+          },
+          "type": "object",
+          "required": [
+            "id",
+            "specie",
+            "months",
+            "meters"
+          ],
+          "title": "Tree",
+          "description": "Сущность дерева."
+        },
+        "ValidationError": {
+          "properties": {
+            "loc": {
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ]
+              },
+              "type": "array",
+              "title": "Location"
+            },
+            "msg": {
+              "type": "string",
+              "title": "Message"
+            },
+            "type": {
+              "type": "string",
+              "title": "Error Type"
+            }
+          },
+          "type": "object",
+          "required": [
+            "loc",
+            "msg",
+            "type"
+          ],
+          "title": "ValidationError"
+        },
+        "Version": {
+          "properties": {
+            "major": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Major"
+            },
+            "minor": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Minor",
+              "default": 0
+            },
+            "patch": {
+              "type": "integer",
+              "minimum": 0,
+              "title": "Patch",
+              "default": 0
+            }
+          },
+          "type": "object",
+          "required": [
+            "major"
+          ],
+          "title": "Version",
+          "description": "Версия сервиса."
+        }
+      }
+    }
+}

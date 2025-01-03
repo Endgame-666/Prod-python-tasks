@@ -1,0 +1,7 @@
+mypy
+pytest
+numpy
+matplotlib
+pytest-timeout
+Pillow
+pytest-memray
